@@ -17,16 +17,16 @@ import { persistStorage } from "./storage";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const needAuthorization = async (resp: Response) => {
+const needAuthorization = (resp: Response) => {
   resp.status(401).send();
 };
 
-const unauthorized = async (resp: Response) => {
+const unauthorized = (resp: Response) => {
   resp.status(403).send();
 };
 
-const ok = async (resp: Response, body?: unknown) => {
-  resp.status(200).json(body).send();
+const ok = (resp: Response, body?: unknown) => {
+  resp.status(200).json(body);
 };
 
 export const getHandlers = async () => {

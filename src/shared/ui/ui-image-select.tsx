@@ -29,7 +29,7 @@ export function UiImageSelect<T>({
             type="button"
             onClick={() => onChange?.(image)}
           >
-            <Image className="w-12 h-12" alt="" src={getSrc(image)} />
+            <Image className="w-12 h-12" alt="" src={getSrc(image)} width={30} height={30}/>
           </button>
         ))}
       </div>
