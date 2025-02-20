@@ -27,5 +27,9 @@ export const useI18n = () => {
       en: "Password",
       ru: "Пароль",
     },
+    "required-form-field": {
+      en: "This field is required",
+      ru: "Это поле обязательное"
+    },
   } as const);
 };

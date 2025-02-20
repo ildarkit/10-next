@@ -37,7 +37,7 @@ export function SignInForm<T extends Translations<string>>(
       <UiTextField
         label="Email"
         inputProps={{
-          ...register("email"),
+          ...register("email", { required: t("required-form-field"), }),
           type: "email",
           placeholder: "example@ex.com",
         }}
@@ -46,7 +46,7 @@ export function SignInForm<T extends Translations<string>>(
       <UiTextField
         label={t("password-label")}
         inputProps={{
-          ...register("password"),
+          ...register("password", { required: t("required-form-field") }),
           type: "password",
           placeholder: "****",
         }}

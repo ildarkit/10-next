@@ -18,13 +18,16 @@ export function useSignIn<T extends Translations<string>>(t: GetTranslationFn<T>
     setIsLoading(true);
     api
       .signIn(signInDto)
-      .then(async (session) => {
+      .then((resp) => {
+        if (resp === undefined)
+          return Promise.reject();
+      })
+      .then(async () => {
         setCurrentSession(await api.getSession());
         addToast({
           message: t("sign-in-success"),
           type: "success",
         });
-        return session;
       })
       .then(() => {
         router.push(ROUTER_PATHS.BOARDS);
