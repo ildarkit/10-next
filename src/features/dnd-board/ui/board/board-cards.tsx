@@ -66,7 +66,7 @@ function BoardCardComponent({
     <Draggable draggableId={card.id} index={index} key={card.id}>
       {({ innerRef, draggableProps, dragHandleProps }) => (
         <div ref={innerRef} {...draggableProps} className="py-1 relative">
-          <div className="p-2 rounded shadow bg-white ">
+          <div className="p-2 rounded shadow bg-white dark:bg-slate-600">
             <div className="flex items-center gap-2 [&_.action]:hover:opacity-100">
               <div
                 className="p-1 hover:bg-teal-100 rounded cursor-[grab] relative z-10"

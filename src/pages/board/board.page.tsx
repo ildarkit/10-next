@@ -61,7 +61,7 @@ export function BoardPage() {
             )}
           </div>
         </div>
-        <Board className="basis-0 grow" />
+        <Board className="basis-0 grow dark:bg-slate-700" />
       </div>
     </ComposeChildren>
   );

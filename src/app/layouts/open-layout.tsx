@@ -12,7 +12,7 @@ export function OpenLayout({ children }: { children?: React.ReactNode }) {
             <UpdateLang />
             <UpdateTheme />
           </div>
-        } // {<UpdateLang className="ml-auto" />}
+        }
       />
       <main className="grow flex flex-col">{children}</main>
     </div>

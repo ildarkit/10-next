@@ -27,7 +27,7 @@ export function BoardColumn({
           {...provided.draggableProps}
           ref={provided.innerRef}
           className={clsx(
-            "w-[300px] bg-white rounded-lg py-3 px-2 mx-2 flex flex-col",
+            "w-[300px] bg-white rounded-lg py-3 px-2 mx-2 flex flex-col dark:bg-slate-800",
             className,
           )}
         >
