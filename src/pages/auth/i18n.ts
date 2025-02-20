@@ -7,6 +7,10 @@ export const useI18n = () => {
       en: "Sign in",
       ru: "Вход",
     },
+    "sign-in": {
+      en: "Sign in",
+      ru: "Войти",
+    },
     "sign-out": {
       en: "Sign out",
       ru: "Выход",
