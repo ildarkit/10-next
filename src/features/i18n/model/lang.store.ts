@@ -4,15 +4,13 @@ import { api } from "@/shared/api";
 
 export type Lang = "ru" | "en";
 
-type LangMap = { [T in Lang]: T };
-type LangKey = keyof LangMap;
 type LangStore = {
-  lang?: LangKey;
-  setLang: (lang: LangKey) => void;
+  lang?: Lang;
+  setLang: (lang: Lang) => void;
 };
 
 export const { useStore: useLang, Provider: I18nProvider } = 
-  createStoreContext(({ lang }: { lang?: LangKey }) => 
+  createStoreContext(({ lang }: { lang?: Lang }) => 
     create<LangStore>((set) => ({
       lang,
       setLang: async (lang) => {

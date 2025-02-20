@@ -1,5 +1,6 @@
 import { SessionProvider } from "@/entities/session";
 import { I18nProvider } from "@/features/i18n";
+import { ThemeProvider } from "@/features/theme";
 import { UiPageSpinner } from "@/shared/ui/ui-page-spinner";
 import { ReactNode, useEffect, useState } from "react";
 import { useApplayAppInterceptor } from "../interceptors/app-interceptor";
@@ -26,7 +27,7 @@ export function AppLoader({
   children?: ReactNode;
   data?: Awaited<ReturnType<typeof loadAppLoaderData>>;
 }) {
-  console.log("defaultData", defaultData)
+  //console.log("defaultData", defaultData)
   const [data, setData] = useState(defaultData);
   const session = data?.session;
   const theme = data?.theme;
@@ -59,6 +60,7 @@ export function AppLoader({
         <ComposeChildren>
           <SessionProvider value={{ session }} />
           <I18nProvider value={{ ...lang }} />
+          <ThemeProvider value={{ ...theme }} />
           {children}
         </ComposeChildren>
       ) : null}
