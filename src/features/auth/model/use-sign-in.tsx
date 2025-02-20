@@ -2,12 +2,11 @@ import { useSession } from "@/entities/session";
 import { api } from "@/shared/api";
 import { ROUTER_PATHS } from "@/shared/constants";
 import { useState } from "react";
-import { useI18n } from "../i18n";
 import { useToasts } from "@/shared/lib/toasts";
 import { useRouter } from "next/router";
+import { GetTranslationFn, Translations } from "@/shared/lib/i18n";
 
-export function useSignIn() {
-  const { t } = useI18n();
+export function useSignIn<T extends Translations<string>>(t: GetTranslationFn<T>) {
   const { addToast } = useToasts();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

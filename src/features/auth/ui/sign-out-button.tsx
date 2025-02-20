@@ -1,9 +1,14 @@
 import { UiButton } from "@/shared/ui/ui-button";
 import { useSignOut } from "../model/use-sign-out";
-import { useI18n } from "../i18n";
+import { GetTranslationFn, Translations } from "@/shared/lib/i18n";
 
-export function SignOutButton({ className }: { className?: string }) {
-  const { t } = useI18n();
+export function SignOutButton<T extends Translations<string>>({
+  t,
+  className 
+}: { 
+  t: GetTranslationFn<T>, 
+  className?: string 
+}) {
   const { signOut, isLoading } = useSignOut();
   return (
     <UiButton

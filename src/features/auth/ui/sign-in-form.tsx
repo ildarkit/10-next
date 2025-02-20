@@ -2,11 +2,17 @@ import { UiButton } from "@/shared/ui/ui-button";
 import { UiTextField } from "@/shared/ui/ui-text-field";
 import { useForm } from "react-hook-form";
 import { useSignIn } from "../model/use-sign-in";
+import { GetTranslationFn, Translations } from "@/shared/lib/i18n";
 import clsx from "clsx";
-import { useI18n } from "../i18n";
 
-export function SignInForm({ className }: { className?: string }) {
-  const { t } = useI18n();
+export function SignInForm<T extends Translations<string>>(
+  { 
+    className, 
+    t
+  }: {
+    t: GetTranslationFn<T>, 
+    className?: string 
+  }) {
   const { register, handleSubmit, formState } = useForm<{
     email: string;
     password: string;
@@ -17,7 +23,7 @@ export function SignInForm({ className }: { className?: string }) {
     },
   });
 
-  const { signIn, isLoading, error } = useSignIn();
+  const { signIn, isLoading, error } = useSignIn(t);
 
   const handleSubmitSignIn = handleSubmit((data) => {
     signIn(data);

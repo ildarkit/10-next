@@ -14,22 +14,11 @@ export function useApplayAppInterceptor() {
         return response;
       },
       (error) => {
-        // 403 handler
         if (error.response.status === 403) {
-          routerReplace(ROUTER_PATHS[403]);
+          return routerReplace(ROUTER_PATHS[403]);
         }
-        throw error;
-      },
-    );
-
-    apiInstance.interceptors.response.use(
-      (response) => {
-        return response;
-      },
-      (error) => {
-        // 401 handler
         if (error.response.status === 401) {
-          routerReplace(ROUTER_PATHS.SIGN_IN);
+          return routerReplace(ROUTER_PATHS.SIGN_IN);
         }
         throw error;
       },

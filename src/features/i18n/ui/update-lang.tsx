@@ -15,9 +15,7 @@ export function UpdateLang({ className }: { className?: string }) {
   const { lang, setLang } = useLang();
 
   const langOption = langOptions.find((option) => option.id === lang);
-  const onChangeLang = (lang: LangOption) => {
-    setLang(lang.id);
-  };
+  const onChangeLang = (lang: LangOption) => setLang(lang.id);
 
   return (
     <UiSelect

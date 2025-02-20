@@ -12,13 +12,14 @@ const getJsonFromFile = async <T>(name: string) => {
 };
 
 const setJsonToFile = async <T>(name: string, value: T) => {
+  const data = value ? JSON.stringify(value) : "undefined";
   try {
     await mkdir(resolve(__dirname, `../../db`), {
       recursive: true,
     }).catch();
     await writeFile(
       resolve(__dirname, `../../db/${name}.json`),
-      JSON.stringify(value),
+      data,
       { encoding: "utf8", flag: "w" },
     );
     return value;

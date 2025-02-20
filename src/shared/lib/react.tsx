@@ -9,7 +9,6 @@ import {
   Children,
   isValidElement,
   createElement,
-  useLayoutEffect,
   useMemo,
   useRef,
 } from "react";

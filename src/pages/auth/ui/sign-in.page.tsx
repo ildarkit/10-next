@@ -15,7 +15,7 @@ export function SignInPage() {
         )}
       >
         <h1 className="text-2xl mb-6">{t("title")}</h1>
-        <SignInForm />
+        <SignInForm t={ t }/>
       </div>
     </main>
   );

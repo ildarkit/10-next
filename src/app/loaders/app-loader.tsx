@@ -1,15 +1,19 @@
-import { Session, SessionProvider } from "@/entities/session";
+import { SessionProvider } from "@/entities/session";
+import { I18nProvider } from "@/features/i18n";
 import { UiPageSpinner } from "@/shared/ui/ui-page-spinner";
 import { ReactNode, useEffect, useState } from "react";
 import { useApplayAppInterceptor } from "../interceptors/app-interceptor";
-import { useTheme } from "@/features/theme";
-import { useLang } from "@/features/i18n";
 import { api } from "@/shared/api";
+import { ComposeChildren } from "@/shared/lib/react";
 
 export const loadAppLoaderData = async () => {
   try {
-    const session = await api.getSession();
-    return { session };
+    const [ session, theme, lang ] = await Promise.all([
+      api.getSession(),
+      api.getTheme(),
+      api.getLang(),
+    ]);
+    return { session, theme, lang };
   } catch {
     return {};
   }
@@ -17,50 +21,46 @@ export const loadAppLoaderData = async () => {
 
 export function AppLoader({
   children,
-  data,
+  data: defaultData,
 }: {
   children?: ReactNode;
   data?: Awaited<ReturnType<typeof loadAppLoaderData>>;
 }) {
-  const [session, setSession] = useState<Session | undefined>(data?.session);
-  const isData = !!session;
+  console.log("defaultData", defaultData)
+  const [data, setData] = useState(defaultData);
+  const session = data?.session;
+  const theme = data?.theme;
+  const lang = data?.lang;
 
-  const loadTheme = useTheme((s) => s.loadTheme);
-  const loadLang = useLang((s) => s.loadLang);
+  const isData = session && theme && lang;
 
   const [isLoading, setIsLoading] = useState(!isData);
 
   useApplayAppInterceptor();
 
   useEffect(() => {
-    loadTheme();
-    loadLang();
-
     if (isData) {
       return;
     }
     setIsLoading(true);
 
-    api
-      .getSession()
-      .then(setSession)
+    loadAppLoaderData()
+      .then(setData)
       .finally(() => {
         setIsLoading(false);
       })
       .catch(() => {});
-  }, [loadTheme, loadLang, isData]);
+  }, [isData]);
 
   return (
     <>
       <UiPageSpinner isLoading={isLoading} />
       {!isLoading ? (
-        <SessionProvider
-          value={{
-            session,
-          }}
-        >
+        <ComposeChildren>
+          <SessionProvider value={{ session }} />
+          <I18nProvider value={{ ...lang }} />
           {children}
-        </SessionProvider>
+        </ComposeChildren>
       ) : null}
     </>
   );
