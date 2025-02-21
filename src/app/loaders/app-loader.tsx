@@ -7,13 +7,13 @@ import { useApplayAppInterceptor } from "../interceptors/app-interceptor";
 import { api } from "@/shared/api";
 import { ComposeChildren } from "@/shared/lib/react";
 
-export const loadAppLoaderData = async () => {
+export const loadAppLoaderData = async (
+  { isPublicRoute } = { isPublicRoute: false }
+) => {
   try {
-    const [ session, theme, lang ] = await Promise.all([
-      api.getSession(),
-      api.getTheme(),
-      api.getLang(),
-    ]);
+    const session = isPublicRoute ? null : await api.getSession();
+    const theme = await api.getTheme();
+    const lang = await api.getLang();
     return { session, theme, lang };
   } catch {
     return {};
@@ -33,7 +33,7 @@ export function AppLoader({
   const theme = data?.theme;
   const lang = data?.lang;
 
-  const isData = session && theme && lang;
+  const isData = session !== undefined && theme && lang;
 
   const [isLoading, setIsLoading] = useState(!isData);
 
@@ -58,7 +58,9 @@ export function AppLoader({
       <UiPageSpinner isLoading={isLoading} />
       {!isLoading ? (
         <ComposeChildren>
-          <SessionProvider value={{ session }} />
+          <SessionProvider 
+            value={{ session: session ?? undefined }} 
+          />
           <I18nProvider value={{ ...lang }} />
           <ThemeProvider value={{ ...theme }} />
           {children}
